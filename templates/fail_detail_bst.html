@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form name="input" action="/{{tem_language}}/{{line}}/fail_detail/" method="get">
+    <a href="/{{tem_language}}/{{line}}/fail_detail/preday"> {{tem_previous_day}} |</a>
+    <a href="/{{tem_language}}/{{line}}/fail_detail/preshift"> {{tem_previous_shift}} |</a>
+    <a href="/{{tem_language}}/{{line}}/fail_detail"> {{tem_today}}</a>
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    <input type="date" name="querydate" id="querydate" min="2021-01-01">
+    <label><input type="radio" name="shift" id="dayshift" value="DAY"> {{tem_day}}</label>
+    <label><input type="radio" name="shift" id="nightshift" value="NIGHT"> {{tem_night}}</label>
+    <input type="submit" value="Submit">
+</form>
+
+<p> {{tem_viewing_data}}{{tem_colon}} {{data_day}} {{data_shift}}</p>
+<div>
+
+    <hr color="#8f8f8f" width="70%" align="left" size="1px">
+    <p> local record in Bst (&nbsp{{tem_sort_able}}&nbsp)</p>
+    <table id="tstTable">
+        <tbody id="tstBody">
+        <tr>
+            <th>test time(local time)</th>
+            <th>sn</th>
+            <th>pid</th>
+            <th>pn</th>
+            <th>result</th>
+            <th>cell</th>
+            <th>fail item</th>
+            <th>fail msg</th>
+        </tr>
+
+        {% for x in bst %}
+        <tr>
+            <td style="width: 180px">{{x.0}}</td>  <!-- time -->
+            <td style="width: 120px">{{x.1}}</td>  <!-- sn -->
+            <td style="width: 140px">{{x.2}}</td>  <!-- pid -->
+            <td style="width: 150px">{{x.3}}</td>  <!-- pn -->
+            <td style="width: 15px; text-align: center">{{x.4}}</td>  <!-- result -->
+            <td style="width: 60px">{{x.5}}</td>  <!-- cell -->
+            <td style="width: 350px">{{x.6}}</td>   <!-- fail -->
+            <td style="width: 150px">{{x.7}}</td>  <!-- fail detail -->
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+    <script>
+        function success(text) {
+            var querydate = document.getElementById("querydate");
+            var ds = document.getElementById("dayshift");
+            var ns = document.getElementById("nightshift");
+            j = JSON.parse(text);
+            querydate.value = `${j.date}`;
+            if (j.shift == "DAY") {
+                ds.checked = true;
+            } else {
+                ns.checked = true;
+            }
+        }
+
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function () {
+            if (request.readyState === 4) {
+                if (request.status === 200) {
+                    return success(request.responseText);
+                }
+            }
+        }
+        request.open('GET', '/json/today');
+        request.send();
+
+    </script>
+    <script src="/static/js/table_sort.js"></script>
+
+    {% endblock content %}

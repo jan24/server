@@ -1,0 +1,55 @@
+# This project is build for Automation BST FST maintaining team, we need to view all test data, not only main-sequence,
+# but also pre-sequence, such as console check, loop back check, to determin which fixture need to be maintained.
+#   1. the db field defined by python sqlite3
+#      'create table tst_record '
+#      '(id INTEGER PRIMARY KEY AUTOINCREMENT, '
+#      'sn VARCHAR(13),' the serial number like 'FCH1111ABCD',
+#      'cell VARCHAR(90),' a long string, lib.get_my_container_key()
+#      'pn VARCHAR(18),' contain version
+#      'pid VARCHAR(22),'  no vid
+#      'result VARCHAR(1),'  result: 'S','P','F', 'U'
+#      'msg VARCHAR(100),'   file msg, or unlock start_user
+#      'msg_detail VARCHAR(100),'  fail msg detail
+#      'time_int INTEGER,'  seconds by the time.time()
+#      'time_str VARCHAR(19),'  strftime('%Y-%m-%d %H:%M:%S') 2023-12-08 20:48:22
+#      'beijing_str VARCHAR(19))')   'strftime like above, but with timezone
+
+# overwrite the value after running
+current_exe_path="error"
+current_config_path="error"
+current_db_path="error"
+# TcpListener port
+port = 8000
+# The project organization, config.toml and db/ and server.exe are under same directory
+#   +--- config.toml
+#   +--- db
+#   |   +--- bst1
+#   |   |   +--- be_cell_record_BST-1.db   // soft link is ok too
+#   |   +--- bst2
+#   |   |   +--- be_cell_record_BST-1.db
+#   |   +--- fst1
+#   |   |   +--- be_cell_record_DIAG-3.db
+#   |   |   +--- be_cell_record_KEYPAD-3.db
+#   |   |   +--- be_cell_record_LCDLED-3.db
+#   |   +--- fst2
+#   |   |   +--- be_cell_record_DIAG-2.db
+#   |   |   +--- be_cell_record_KEYPAD-2.db
+#   |   |   +--- be_cell_record_LCDLED-2.db
+#   +--- server.exe
+# below define the db file name
+[bst1]
+hostname = "fxvapp13"
+bst_db = "be_cell_record_BST-1.db"
+[bst2]
+hostname = "fxvapp92"
+bst_db = "be_cell_record_BST-1.db"
+[fst1]
+hostname = "fxvapp16"
+lcd_db = "be_cell_record_LCDLED-1.db"
+diag_db = "be_cell_record_DIAG-1.db"
+key_db = "be_cell_record_KEYPAD-1"
+[fst2]
+hostname = "fxvapp55"
+lcd_db = "be_cell_record_LCDLED-2.db"
+diag_db = "be_cell_record_DIAG-2.db"
+key_db = "be_cell_record_KEYPAD-2.db"

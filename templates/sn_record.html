@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form name="input" action="/{{tem_language}}/{{line}}/query_sn/" method="get">
+    Query data from local sqlite db, Please enter serial_number :
+    <input type="text" value="" name="sn" id="enter_sn">
+    <input type="submit" value="{{tem_submit}}">
+</form>
+
+
+<div>
+    <hr color="#8f8f8f" width="80%" align="left" size="1px">
+    <p>{{tem_sort_able}}</p>
+    <table id="tstTable">
+        <tbody id="tstBody">
+        <tr>
+            <th id="th_tst_time" class="tst_time">test time(local time)</th>
+            <th id="th_tst_sn" class="tst_sn">sn</th>
+            <th id="th_tst_pid" class="tst_pid">pid</th>
+            <th id="th_tst_pn" class="tst_pn">pn</th>
+            <th id="th_tst_area" class="tst_area">area</th>
+            <th id="th_tst_res" class="tst_res">res</th>
+            <th id="th_tst_machine" class="tst_machine">machine</th>
+            <th id="th_tst_cell" class="tst_cell">cell</th>
+            <th id="th_tst_fail" class="tst_fail">fail item</th>
+            <th id="th_tst_failde" class="tst_failde">fail msg</th>
+        </tr>
+
+        {% for x in record %}
+        <tr>
+            <td class="tst_time" style="width: 240px">{{x.0}}</td>   <!-- time -->
+            <td class="tst_sn" style="width: 120px">{{x.1}}</td>     <!-- sn -->
+            <td class="tst_pid" style="width: 140px">{{x.2}}</td>   <!-- pid -->
+            <td class="tst_pn" style="width: 150px">{{x.3}}</td>   <!-- pn -->
+            <td class="tst_area" style="width: 70px">{{x.4}}</td>    <!-- area -->
+            <td class="tst_res" style="width: 15px; text-align: center">{{x.5}}</td>  <!-- result -->
+            <td class="tst_machine" style="width: 110px">{{x.6}}</td>   <!-- machine -->
+            <td class="tst_cell" style="width: 150px">{{x.7}}</td>   <!-- cell -->
+            <td class="tst_fail" style="width: 180px">{{x.8}}</td>   <!-- fail -->
+            <td class="tst_failde" style="width: 120px">{{x.9}}</td>   <!-- fail detail -->
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+<script src="/static/js/table_sort.js"></script>
+<script src="/static/js/sn.js"></script>
+
+{% endblock content %}

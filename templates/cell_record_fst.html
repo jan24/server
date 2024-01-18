@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    .buttoncomtainer1 {
+        /*A wrapper for your hover dropdown List*/
+        width: 130px;
+        height: 1.2em;
+        /* float: left; */
+        position: absolute;
+        z-index: 20;
+        display: inline-block;
+    }
+
+    .mycheckButton {
+        /*Your Label acts as a Button Triggering the checkbox*/
+        width: 130px;
+        height: 1.2em;
+        float: left;
+        display: block;
+        background-color: #e2e2e2;
+        text-align: center;
+        color: black;
+        <!--position: fixed;-->
+        z-index: 20;
+    }
+
+    .mycheckDrop {
+        /*Your Dropdown*/
+        width: 120px;
+        float: left;
+        display: none;
+        padding: 5px;
+        background-color: #eee;
+        position: fixed;
+        z-index: 20;
+        margin-top: 1.2em;
+    }
+
+    .gone {
+        /*Make your checkbox disappear*/
+        border: 0px;
+        outline: none;
+        line-height: 0;
+        display: none;
+        margin: 0px;
+        padding: 0px;
+        width: 0px;
+        height: 0px;
+    }
+
+    .blackout {
+        /*This Div covers the page with the labelBlackout Label in it. nothing can be clicked unless The Label inside clicked first triggering the checkbox. */
+        width: 100%;
+        height: 100%;
+        float: left;
+        position: fixed;
+        z-index: 15;
+        background-color: transparent;
+        /*    You can add a background color like this. background-color:black; opacity:0.7;*/
+        display: none;
+    }
+
+    .labelBlackout {
+        /*the Label inside the blackout div that covers the page*/
+        width: 100%;
+        height: 100%;
+        float: left;
+    }
+
+    .lnkCon {
+        /*  Container that holds your dropdown links.*/
+        width: 100%;
+        height: 1em;
+        float: left;
+        margin-top: 2px;
+    }
+
+    .droplink {
+        color: black;
+        text-decoration: none;
+        font-size: 0.8em;
+    }
+
+    .droplink:hover {
+        color: white;
+        background-color: rgb(116, 172, 224);
+    }
+
+    input[type=checkbox].gone:checked~div.blackout {
+        display: block;
+    }
+
+    input[type=checkbox].gone:checked~label.mycheckDrop {
+        display: block;
+    }
+
+    .buttoncomtainer1:hover>.mycheckDrop {
+        display: block;
+    }
+
+
+</style>
+
+Please select &nbsp
+<div class="buttoncomtainer1">
+    <input class="gone" id="myCheck" type="checkbox">
+    <div class="blackout"><label class="labelBlackout" for="myCheck"></label></div>
+    <label class="mycheckButton" for="myCheck">CELL &nbsp ▼</label>
+    <label class="mycheckDrop" for="myCheck">
+        <span class="lnkCon"><a class="droplink" href="/{{tem_language}}/{{line}}/query_cell/?cell=CELL_81">Lcdled &nbsp
+                        CELL_81</a></span>
+        <span class="lnkCon"><a class="droplink" href="/{{tem_language}}/{{line}}/query_cell/?cell=CELL_82">Lcdled &nbsp
+                        CELL_82</a></span>
+        <span class="lnkCon"><a class="droplink" href="/{{tem_language}}/{{line}}/query_cell/?cell=CELL_83">Lcdled &nbsp
+                        CELL_83</a></span>
+        <span class="lnkCon"><a class="droplink" href="/{{tem_language}}/{{line}}/query_cell/?cell=CELL_84">Lcdled &nbsp
+                        CELL_84</a></span>
+        <span class="lnkCon"><a class="droplink" href="/{{tem_language}}/{{line}}/query_cell/?cell=CELL_85">Lcdled &nbsp
+                        CELL_85</a></span>
+        <span class="lnkCon"><a class="droplink" href="/{{tem_language}}/{{line}}/query_cell/?cell=CELL_86">Lcdled &nbsp
+                        CELL_86</a></span>
+
+        <span class="lnkCon"><a class="droplink" href="/{{tem_language}}/{{line}}/query_cell/?cell=CELL_53">Diag &nbsp
+                        CELL_53</a></span>
+        <span class="lnkCon"><a class="droplink" href="/{{tem_language}}/{{line}}/query_cell/?cell=CELL_55">Diag &nbsp
+                        CELL_55</a></span>
+        <span class="lnkCon"><a class="droplink" href="/{{tem_language}}/{{line}}/query_cell/?cell=CELL_57">Diag &nbsp
+                        CELL_57</a></span>
+        <span class="lnkCon"><a class="droplink" href="/{{tem_language}}/{{line}}/query_cell/?cell=CELL_59">Diag &nbsp
+                        CELL_59</a></span>
+        <span class="lnkCon"><a class="droplink" href="/{{tem_language}}/{{line}}/query_cell/?cell=CELL_61">Diag &nbsp
+                        CELL_61</a></span>
+        <span class="lnkCon"><a class="droplink" href="/{{tem_language}}/{{line}}/query_cell/?cell=CELL_63">Diag &nbsp
+                        CELL_63</a></span>
+        <span class="lnkCon"><a class="droplink" href="/{{tem_language}}/{{line}}/query_cell/?cell=CELL_65">Diag &nbsp
+                        CELL_65</a></span>
+        <span class="lnkCon"><a class="droplink" href="/{{tem_language}}/{{line}}/query_cell/?cell=CELL_67">Diag &nbsp
+                        CELL_67</a></span>
+
+        <span class="lnkCon"><a class="droplink" href="/{{tem_language}}/{{line}}/query_cell/?cell=CELL_69">Keypad &nbsp
+                        CELL_69</a></span>
+        <span class="lnkCon"><a class="droplink" href="/{{tem_language}}/{{line}}/query_cell/?cell=CELL_71">Keypad &nbsp
+                        CELL_71</a></span>
+        <span class="lnkCon"><a class="droplink" href="/{{tem_language}}/{{line}}/query_cell/?cell=CELL_73">Keypad &nbsp
+                        CELL_73</a></span>
+        <span class="lnkCon"><a class="droplink" href="/{{tem_language}}/{{line}}/query_cell/?cell=CELL_75">Keypad &nbsp
+                        CELL_75</a></span>
+        <span class="lnkCon"><a class="droplink" href="/{{tem_language}}/{{line}}/query_cell/?cell=CELL_77">Keypad &nbsp
+                        CELL_77</a></span>
+        <span class="lnkCon"><a class="droplink" href="/{{tem_language}}/{{line}}/query_cell/?cell=CELL_79">Keypad &nbsp
+                        CELL_79</a></span>
+    </label>
+
+</div>
+<p> Viewing latest {{query_count}} records of &nbsp {{cell}} &nbsp&nbsp|<a href="/query_cell/">&nbsp
+    clear data</a></p>
+<div>
+    <p style="font-weight:bold">Yield: Start {{res_yield.0}}, Pass {{res_yield.1}}, Fail {{res_yield.2}}, Unlock {{res_yield.3}}</p>
+    <hr color="#8f8f8f" width="50%" align="left" size="1px">
+    <p>{{tem_sort_able}}</p>
+    <table id="tstTable">
+        <tbody id="tstBody">
+        <tr>
+            <th>seq</th>
+            <th>test time(local time)</th>
+            <th>sn</th>
+            <th>pid</th>
+            <th>pn</th>
+            <th>res</th>
+            <th>cell</th>
+            <th>fail item</th>
+            <th>fail msg</th>
+        </tr>
+
+        {% for x in record %}
+        <tr>
+            <td style="width: 15px">{{x.0}}</td>
+            <td style="width: 180px">{{x.1}}</td>  <!-- time -->
+            <td style="width: 120px">{{x.2}}</td>  <!-- sn -->
+            <td style="width: 140px">{{x.3}}</td>  <!-- pid -->
+            <td style="width: 150px">{{x.4}}</td>  <!-- pn -->
+            <td style="width: 15px; text-align: center">{{x.5}}</td>  <!-- result -->
+            <td style="width: 60px">{{x.6}}</td>  <!-- cell -->
+            <td style="width: 350px">{{x.7}}</td>   <!-- fail -->
+            <td style="width: 150px">{{x.8}}</td>  <!-- fail detail -->
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+<br>
+<br>
+
+<script src="/static/js/table_sort.js"></script>
+
+{% endblock content %}

@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    .buttoncomtainer1 {
+        /*A wrapper for your hover dropdown List*/
+        width: 130px;
+        height: 1.2em;
+        /* float: left; */
+        position: absolute;
+        z-index: 20;
+        display: inline-block;
+    }
+
+    .mycheckButton {
+        /*Your Label acts as a Button Triggering the checkbox*/
+        width: 130px;
+        height: 1.2em;
+        float: left;
+        display: block;
+        background-color: #e2e2e2;
+        text-align: center;
+        color: black;
+    <!-- position: fixed;
+    --> z-index: 20;
+    }
+
+    .mycheckDrop {
+        /*Your Dropdown*/
+        width: 120px;
+        float: left;
+        display: none;
+        padding: 5px;
+        background-color: #eee;
+        position: fixed;
+        z-index: 20;
+        margin-top: 1.2em;
+    }
+
+    .gone {
+        /*Make your checkbox disappear*/
+        border: 0px;
+        outline: none;
+        line-height: 0;
+        display: none;
+        margin: 0px;
+        padding: 0px;
+        width: 0px;
+        height: 0px;
+    }
+
+    .blackout {
+        /*This Div covers the page with the labelBlackout Label in it. nothing can be clicked unless The Label inside clicked first triggering the checkbox. */
+        width: 100%;
+        height: 100%;
+        float: left;
+        position: fixed;
+        z-index: 15;
+        background-color: transparent;
+        /*    You can add a background color like this. background-color:black; opacity:0.7;*/
+        display: none;
+    }
+
+    .labelBlackout {
+        /*the Label inside the blackout div that covers the page*/
+        width: 100%;
+        height: 100%;
+        float: left;
+    }
+
+    .lnkCon {
+        /*  Container that holds your dropdown links.*/
+        width: 100%;
+        height: 1em;
+        float: left;
+        margin-top: 2px;
+    }
+
+    .droplink {
+        color: black;
+        text-decoration: none;
+        font-size: 0.8em;
+    }
+
+    .droplink:hover {
+        color: white;
+        background-color: rgb(116, 172, 224);
+    }
+
+    input[type=checkbox].gone:checked ~ div.blackout {
+        display: block;
+    }
+
+    input[type=checkbox].gone:checked ~ label.mycheckDrop {
+        display: block;
+    }
+
+    .buttoncomtainer1:hover > .mycheckDrop {
+        display: block;
+    }
+
+
+</style>
+
+
+<div style="float:left">
+    <br>
+    <hr color="#8f8f8f" width="50%" align="left" size="1px">
+    <p>{{tem_sort_able}}</p>
+    <table id="tstTable">
+        <tbody id="tstBody">
+        <tr>
+            <th>Cell</th>
+            <th>Start</th>
+            <th>Pass</th>
+            <th>Fail</th>
+            <th>Unlock</th>
+            <th>Fail_Yield</th>
+        </tr>
+
+        {% for x in station_yield %}
+        <tr>
+            <td style="width: 100px; text-align: center">
+                <a href="/{{tem_language}}/{{line}}/query_cell/?cell={{x.0}}">{{x.0}}</a>
+            </td>
+            <td style="width: 80px; text-align: center">{{x.1|zero2space}}</td>
+            <td style="width: 80px; text-align: center">{{x.2|zero2space}}</td>
+            <td style="width: 80px; text-align: center">{{x.3|zero2space}}</td>
+            <td style="width: 80px; text-align: center">{{x.4|zero2space}}</td>
+            <td style="width: 80px; text-align: center">{{x.5|zero2space}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <br>
+</div>
+
+
+<script src="/static/js/table_sort.js"></script>
+
+{% endblock content %}

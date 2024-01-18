@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form name="input" action="/{{tem_language}}/{{line}}/pf_data/" method="get">
+    <a href="/{{tem_language}}/{{line}}/pf_data/preday"> {{tem_previous_day}} |</a>
+    <a href="/{{tem_language}}/{{line}}/pf_data/preshift"> {{tem_previous_shift}} |</a>
+    <a href="/{{tem_language}}/{{line}}/pf_data"> {{tem_today}}</a>
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+
+    <input type="date" name="querydate" id="querydate" min="2021-01-01">
+    <label><input type="radio" name="shift" id="dayshift" value="DAY"> {{tem_day}}</label>
+    <label><input type="radio" name="shift" id="nightshift" value="NIGHT"> {{tem_night}}</label>
+    <input type="submit" value="{{tem_submit}}">
+
+</form>
+<p> {{tem_viewing_data}}{{tem_colon}} {{data_day}} {{data_shift}}</p>
+<div style="clear:left">
+    <hr color="#8f8f8f" width="80%" align="left" size="1px">
+    <p> local record in Bst</p>
+</div>
+<table style="float:left">
+    <tr>
+        <th>Time</th>
+        <th style="width: 100px">Pass | Fail</th>
+        <th style="width: 80px">01</th>
+        <th style="width: 80px">02</th>
+        <th style="width: 80px">03</th>
+        <th style="width: 80px">04</th>
+        <th style="width: 80px">05</th>
+        <th style="width: 80px">06</th>
+        <th style="width: 80px">07</th>
+        <th style="width: 80px">08</th>
+    </tr>
+    {% for x in bst %}
+    <tr>
+        <td style="width: 120px">{{x.0}}</td>
+        <td style="width: 80px">{{x.1}}</td>
+        <td>{{x.2}}</td>
+        <td>{{x.3}}</td>
+        <td>{{x.4}}</td>
+        <td>{{x.5}}</td>
+        <td>{{x.6}}</td>
+        <td>{{x.7}}</td>
+        <td>{{x.8}}</td>
+        <td>{{x.9}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<p>&nbsp</p>
+
+<script>
+    function success(text) {
+        var querydate = document.getElementById("querydate");
+        var ds = document.getElementById("dayshift");
+        var ns = document.getElementById("nightshift");
+        j = JSON.parse(text);
+        querydate.value = `${j.date}`;
+        if (j.shift == "DAY") {
+            ds.checked = true;
+        } else {
+            ns.checked = true;
+        }
+    }
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+        if (request.readyState === 4) {
+            if (request.status === 200) {
+                return success(request.responseText);
+            }
+        }
+    }
+    request.open('GET', '/json/today');
+    request.send();
+
+</script>
+
+{% endblock content %}

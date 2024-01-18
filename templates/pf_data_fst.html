@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form name="input" action="/{{tem_language}}/{{line}}/pf_data/" method="get">
+    <a href="/{{tem_language}}/{{line}}/pf_data/preday"> {{tem_previous_day}} |</a>
+    <a href="/{{tem_language}}/{{line}}/pf_data/preshift"> {{tem_previous_shift}} |</a>
+    <a href="/{{tem_language}}/{{line}}/pf_data"> {{tem_today}}</a>
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+
+    <input type="date" name="querydate" id="querydate" min="2021-01-01">
+    <label><input type="radio" name="shift" id="dayshift" value="DAY"> {{tem_day}}</label>
+    <label><input type="radio" name="shift" id="nightshift" value="NIGHT"> {{tem_night}}</label>
+    <input type="submit" value="{{tem_submit}}">
+
+</form>
+<p> {{tem_viewing_data}}{{tem_colon}} {{data_day}} {{data_shift}}</p>
+
+<div style="clear:left">
+    <hr color="#8f8f8f" width="80%" align="left" size="1px">
+    <p> local record in Lcdled</p>
+</div>
+<table style="float:left">
+    <tr>
+        <th>Time</th>
+        <th style="width: 100px">Pass | Fail</th>
+        <th style="width: 90px">81</th>
+        <th style="width: 90px">82</th>
+        <th style="width: 90px">83</th>
+        <th style="width: 90px">84</th>
+        <th style="width: 90px">85</th>
+        <th style="width: 90px">86</th>
+    </tr>
+    {% for x in lcdled %}
+    <tr style="text-align:left">
+        <td style="width: 120px">{{x.0}}</td>
+        <td style="width: 80px">{{x.1}}</td>
+        <td>{{x.2}}</td>
+        <td>{{x.3}}</td>
+        <td>{{x.4}}</td>
+        <td>{{x.5}}</td>
+        <td>{{x.6}}</td>
+        <td>{{x.7}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+<div style="clear:left">
+    <p> &nbsp</p>
+    <hr color="#8f8f8f" width="80%" align="left" size="1px">
+    <p> local record in Diag</p>
+</div>
+<table style="float:left">
+    <tr>
+        <th>Time</th>
+        <th style="width: 100px">Pass | Fail</th>
+        <th style="width: 80px">53</th>
+        <th style="width: 80px">55</th>
+        <th style="width: 80px">57</th>
+        <th style="width: 80px">59</th>
+        <th style="width: 80px">61</th>
+        <th style="width: 80px">63</th>
+        <th style="width: 80px">65</th>
+        <th style="width: 80px">67</th>
+    </tr>
+    {% for x in diag %}
+    <tr>
+        <td style="width: 120px">{{x.0}}</td>
+        <td style="width: 80px">{{x.1}}</td>
+        <td>{{x.2}}</td>
+        <td>{{x.3}}</td>
+        <td>{{x.4}}</td>
+        <td>{{x.5}}</td>
+        <td>{{x.6}}</td>
+        <td>{{x.7}}</td>
+        <td>{{x.8}}</td>
+        <td>{{x.9}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+<div style="clear:left">
+    <p> &nbsp</p>
+    <hr color="#8f8f8f" width="80%" align="left" size="1px">
+    <p> local record in Keypad</p>
+</div>
+<table style="float:left">
+    <tr>
+        <th>Time</th>
+        <th style="width: 100px">Pass | Fail</th>
+        <th style="width: 90px">69</th>
+        <th style="width: 90px">71</th>
+        <th style="width: 90px">73</th>
+        <th style="width: 90px">75</th>
+        <th style="width: 90px">77</th>
+        <th style="width: 90px">79</th>
+    </tr>
+    {% for x in keypad %}
+    <tr>
+        <td style="width: 120px">{{x.0}}</td>
+        <td style="width: 80px">{{x.1}}</td>
+        <td>{{x.2}}</td>
+        <td>{{x.3}}</td>
+        <td>{{x.4}}</td>
+        <td>{{x.5}}</td>
+        <td>{{x.6}}</td>
+        <td>{{x.7}}</td>
+    </tr>
+    {% endfor %}
+</table>
+<p>&nbsp</p>
+
+<script>
+    function success(text) {
+        var querydate = document.getElementById("querydate");
+        var ds = document.getElementById("dayshift");
+        var ns = document.getElementById("nightshift");
+        j = JSON.parse(text);
+        querydate.value = `${j.date}`;
+        if (j.shift == "DAY") {
+            ds.checked = true;
+        } else {
+            ns.checked = true;
+        }
+    }
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+        if (request.readyState === 4) {
+            if (request.status === 200) {
+                return success(request.responseText);
+            }
+        }
+    }
+    request.open('GET', '/json/today');
+    request.send();
+
+</script>
+
+{% endblock content %}
